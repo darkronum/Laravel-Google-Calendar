@@ -1,6 +1,6 @@
 📅 Google Calendar API -> Laravel Integration
 
-📅 Integração Laravel -> API Google Agenda
+📅  API Google Agenda -> Integração Laravel
 
 Este é um módulo desenvolvido em Laravel que oferece integração completa com a API do Google Calendar. Ele permite gerenciar eventos no calendário, incluindo criação, leitura, atualização e exclusão de eventos. Além disso, este projeto serve como um recurso educacional para aprender a integrar e trabalhar com a API do Google Calendar em aplicativos Laravel.
 
