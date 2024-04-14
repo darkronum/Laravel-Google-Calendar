@@ -10,44 +10,44 @@ Configuração do ambiente:
 
 Certifique-se de ter uma instância do Laravel configurada em seu ambiente de desenvolvimento.
 
-Configure as credenciais da API do Google Calendar no arquivo config/services.php conforme a documentação do Laravel.\
+Configure as credenciais da API do Google Calendar no arquivo config/services.php conforme a documentação do Laravel.
 
-Instalação:\
+Instalação:
 
-Clone este repositório em seu ambiente de desenvolvimento.\
+Clone este repositório em seu ambiente de desenvolvimento.
 
-Execute composer install para instalar as dependências do Laravel.\
+Execute composer install para instalar as dependências do Laravel.
 
-Configuração do Google Calendar:\
+Configuração do Google Calendar:
 
-No Console de APIs do Google, habilite a API do Google Calendar e crie credenciais OAuth 2.0 para seu aplicativo.\
+No Console de APIs do Google, habilite a API do Google Calendar e crie credenciais OAuth 2.0 para seu aplicativo.
 
-Adicione as credenciais geradas no arquivo config/services.php do Laravel.\
+Adicione as credenciais geradas no arquivo config/services.php do Laravel.
 
-Migração do banco de dados:\
+Migração do banco de dados:
 
-Execute php artisan migrate para migrar as tabelas necessárias do banco de dados.\
+Execute php artisan migrate para migrar as tabelas necessárias do banco de dados.
 
-Uso:\
+Uso:
 
-Navegue pela aplicação para criar, visualizar, editar e excluir eventos no Google Calendar.\
+Navegue pela aplicação para criar, visualizar, editar e excluir eventos no Google Calendar.
 
-🚀 Funcionalidades\
+🚀 Funcionalidades
 
-Listagem de eventos: Visualize todos os eventos do Google Calendar.\
+Listagem de eventos: Visualize todos os eventos do Google Calendar.
 
-Criação de eventos: Crie novos eventos especificando título, descrição, data e hora de início e fim.\
+Criação de eventos: Crie novos eventos especificando título, descrição, data e hora de início e fim.
 
-Visualização de eventos: Veja os detalhes de um evento específico.\
+Visualização de eventos: Veja os detalhes de um evento específico.
 
-Edição de eventos: Atualize os detalhes de um evento existente.\
+Edição de eventos: Atualize os detalhes de um evento existente.
 
-Exclusão de eventos: Remova eventos do Google Calendar.\
+Exclusão de eventos: Remova eventos do Google Calendar.
 
-📝 Contribuição\
+📝 Contribuição
 
-Se você quiser contribuir com este projeto, sinta-se à vontade para enviar um pull request. Toda contribuição é bem-vinda!\
+Se você quiser contribuir com este projeto, sinta-se à vontade para enviar um pull request. Toda contribuição é bem-vinda!
 
-📄 Licença\
+📄 Licença
 
-Este projeto é licenciado sob a MIT License.\
+Este projeto é licenciado sob a MIT License.
