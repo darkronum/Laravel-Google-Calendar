@@ -18,6 +18,10 @@ Clone este repositório em seu ambiente de desenvolvimento.
 
 Execute composer install para instalar as dependências do Laravel.
 
+Execute php artisan serve para iniciar a aplicação em servidor local
+
+Execute npm run dev para iniciar os módulos node ( Vite )
+
 Configuração do Google Calendar:
 
 No Console de APIs do Google, habilite a API do Google Calendar e crie credenciais OAuth 2.0 para seu aplicativo.

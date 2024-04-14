@@ -13,21 +13,27 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Google\Service\Calendar\Event;
 use Google\Service\Calendar\EventDateTime;
+
 class CalendarController extends Controller
 {
     private $client;
 
+    // Função para formatar uma string de data/hora para o formato RFC3339
     private function formatToRFC3339($dateTimeString)
     {
         $dateTime = Carbon::parse($dateTimeString);
         return $dateTime->toRfc3339String();
     }
+
+    // Construtor da classe
     public function __construct()
     {
+        // Inicialização do cliente do Google
         $this->client = new Google_Client();
         $this->client->setAuthConfig(config('services.google'));
     }
 
+    // Método para exibir os eventos do calendário
     public function index()
     {
         $user = auth()->user();
@@ -41,6 +47,7 @@ class CalendarController extends Controller
 
             $calendarId = 'primary';
 
+            // Listar eventos do calendário
             $events = $service->events->listEvents($calendarId);
 
             return view('auth.calendar.index', compact('events'));
@@ -49,6 +56,7 @@ class CalendarController extends Controller
         }
     }
 
+    // Método para gerar um novo token de acesso a partir do token de atualização
     private function generateAccessTokenFromRefreshToken($refreshToken)
     {
         $newAccessToken = null;
@@ -74,12 +82,13 @@ class CalendarController extends Controller
 
     }
 
-
+    // Método para exibir o formulário de criação de evento
     public function create()
     {
         return view('auth.calendar.create');
     }
 
+    // Método para armazenar um novo evento no calendário
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -93,9 +102,11 @@ class CalendarController extends Controller
 
             $calendarId = 'primary';
 
+            // Definir data/hora de início e término do evento
             $startDateTime = $request->start . 'T' . $request->start_time . ':00-03:00';
             $endDateTime = $request->end . 'T' . $request->end_time . ':00-03:00';
 
+            // Criar um novo evento
             $event = new Google_Service_Calendar_Event([
                 'summary' => $request->title,
                 'description' => $request->description,
@@ -104,18 +115,21 @@ class CalendarController extends Controller
                 'reminders' => ['useDefault' => true],
             ]);
 
+            // Inserir o evento no calendário
             $results = $service->events->insert($calendarId, $event);
 
-            if (!$results) {
-                return response()->json(['status' => 'error', 'message' => 'Something went wrong']);
+            if ($results) {
+                return redirect()->route('calendar.index')->withSuccess('Event Created');
             }
 
-            return response()->json(['status' => 'success', 'message' => 'Event Created']);
+            return back()->withErrors('Something went wrong');
+
         } catch (\Exception $ex) {
             return back()->withErrors('Unable to complete the request, due to this error: ' . $ex->getMessage());
         }
     }
 
+    // Método para exibir detalhes de um evento específico
     public function show(string $id)
     {
         $user = auth()->user();
@@ -127,6 +141,7 @@ class CalendarController extends Controller
 
             $service = new Google_Service_Calendar($this->client);
 
+            // Obter detalhes do evento
             $event = $service->events->get('primary', $id);
 
             return view('auth.calendar.show', compact('event'));
@@ -135,11 +150,13 @@ class CalendarController extends Controller
         }
     }
 
+    // Método para editar um evento específico
     public function edit(string $id)
     {
-        //
+        // Método não implementado neste exemplo
     }
 
+    // Método para atualizar um evento no calendário
     public function update(Request $request, string $id)
     {
         $user = auth()->user();
@@ -158,13 +175,13 @@ class CalendarController extends Controller
             $event->setSummary($request->title);
             $event->setDescription($request->description);
 
-            // Convertendo as datas e horas para o formato RFC3339 ( Necessário API )
-            $startDateTime = new EventDateTime();
-            $startDateTime->setDateTime($this->formatToRFC3339($request->start));
+            // Convertendo as datas e horas para o formato RFC3339 e adicionando 3 horas
+            $startDateTime = new Google_Service_Calendar_EventDateTime();
+            $startDateTime->setDateTime($this->formatToRFC3339(Carbon::parse($request->start)->addHours(3)));
             $event->setStart($startDateTime);
 
-            $endDateTime = new EventDateTime();
-            $endDateTime->setDateTime($this->formatToRFC3339($request->end));
+            $endDateTime = new Google_Service_Calendar_EventDateTime();
+            $endDateTime->setDateTime($this->formatToRFC3339(Carbon::parse($request->end)->addHours(3)));
             $event->setEnd($endDateTime);
 
             // Atualizando o evento
@@ -181,6 +198,7 @@ class CalendarController extends Controller
         }
     }
 
+    // Método para excluir um evento do calendário
     public function destroy(string $id)
     {
         $user = auth()->user();
@@ -199,5 +217,4 @@ class CalendarController extends Controller
             return back()->withErrors('Unable to complete the request: ' . $ex->getMessage());
         }
     }
-
 }
