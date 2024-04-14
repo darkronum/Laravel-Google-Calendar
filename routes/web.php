@@ -19,10 +19,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/google/login', [SocialController::class, 'redirectOnGoogle'])->name('google.login');
     Route::get('/google/redirect', [SocialController::class, 'openGoogleAccountDetails'])->name('google.callback');
-    Route::get('calendar', [CalendarController::class, 'openCalendar'])->name('calendar');
+    //Route::get('calendar', [CalendarController::class, 'openCalendar'])->name('calendar');
+    Route::get('test', [CalendarController::class, 'openCalendar'])->name('auth.calendar.index');
+    Route::resource('calendar', CalendarController::class);
 
 });
 
 
 
 require __DIR__.'/auth.php';
+
+
